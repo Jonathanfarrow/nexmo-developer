@@ -14,4 +14,11 @@ namespace :ci do
       end
     end
   end
+
+  desc 'Render side navigation to make sure every page has valid YAML metadata'
+  task 'render_navigation': :environment do
+    session = ActionDispatch::Integration::Session.new(Rails.application)
+    res = session.get '/documentation'
+    raise 'Error rendering documentation index page' if res == 500
+  end
 end
